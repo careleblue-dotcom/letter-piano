@@ -29,7 +29,7 @@ npm run dev
 - `src/audio/`：本地钢琴采样映射、多声部播放、自然 release、延音。
 - `src/engine/`：以 `AudioContext.currentTime` 为基准的独立歌曲时间轴。
 - `src/keyboard/`：独立的电脑键盘与音高映射。
-- `src/songs/`：歌曲类型、四首较长曲目的生成数据与三首入门曲。
+- `src/songs/`：歌曲类型、十二首曲目的生成数据，其中八首为轻进阶改编。
 - `source-midi/`：较长曲目的来源 MIDI；运行 `npm run songs:generate` 可以重新生成 `src/songs/generated.json`。
 - `src/components/`：横向字母曲谱、虚拟琴键、控制栏。
 - `src/pages/`：界面状态和输入协调。
@@ -47,3 +47,6 @@ npm run dev
 - 《Never See Me Again》：基于 [Online Sequencer 公开分享的钢琴序列](https://onlinesequencer.net/3681530) 重新编排成约 2 分 40 秒的私人练习版。原序列只有约 46 秒，因此这首是重复、延展后的钢琴改编，**不是原歌曲逐音逐段的完整转录**。
 
 为了让曲子能在十九个字母键上弹奏，转换时保留原谱的时间和主要旋律，压缩音域、将半音靠近相邻白键，并适当减少伴奏音。这些版本适合跟随字母谱演奏，不能替代原始钢琴谱。
+
+
+新增八首轻进阶曲目：《G大调小步舞曲》《G小调小步舞曲》《旋律》《士兵进行曲》《快乐的农夫》《初次的悲伤》《勇敢的骑士》《A大调前奏曲》。速度为 60–84 BPM，最多同时按两个键。已删除《欢乐颂 · 入门》《小星星 · 入门》《暮色练习曲 · 入门》。新增曲目的原谱、署名、授权与改编说明见 [source-midi/README.md](source-midi/README.md#新增轻进阶曲目)。

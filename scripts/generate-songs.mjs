@@ -39,6 +39,169 @@ const specs = [
   },
 ]
 
+specs.push(...[
+  {
+    "useTicks": true,
+    "leadStep": 0.5,
+    "bassStep": 1,
+    "leadCount": 1,
+    "file": "petzold-minuet-g.mid",
+    "id": "minuet-g",
+    "title": "G大调小步舞曲",
+    "subtitle": "轻进阶 · 三拍子与双音",
+    "composer": "克里斯蒂安·佩措尔德",
+    "bpm": 80,
+    "timeSignature": [
+      3,
+      4
+    ],
+    "leadTrack": "one:",
+    "bassTrack": "two:",
+    "transpose": -7,
+    "repeatSections": 48
+  },
+  {
+    "useTicks": true,
+    "leadStep": 0.5,
+    "bassStep": 1,
+    "leadCount": 1,
+    "file": "petzold-minuet-g-minor.mid",
+    "id": "minuet-g-minor",
+    "title": "G小调小步舞曲",
+    "subtitle": "轻进阶 · 舒缓的小调旋律",
+    "composer": "克里斯蒂安·佩措尔德",
+    "bpm": 72,
+    "timeSignature": [
+      3,
+      4
+    ],
+    "leadTrack": "one:",
+    "bassTrack": "two:",
+    "transpose": 2,
+    "repeatSections": 48
+  },
+  {
+    "useTicks": true,
+    "leadStep": 0.5,
+    "bassStep": 1,
+    "leadCount": 1,
+    "file": "schumann-melody.mid",
+    "id": "schumann-melody",
+    "title": "旋律",
+    "subtitle": "轻进阶 · 连贯旋律与低音",
+    "composer": "舒曼 · Op.68 No.1",
+    "bpm": 76,
+    "timeSignature": [
+      4,
+      4
+    ],
+    "leadTrack": "upper",
+    "bassTrack": "lower",
+    "transpose": 0
+  },
+  {
+    "useTicks": true,
+    "leadStep": 0.5,
+    "bassStep": 1,
+    "leadCount": 1,
+    "file": "schumann-soldiers-march.mid",
+    "id": "soldiers-march",
+    "title": "士兵进行曲",
+    "subtitle": "轻进阶 · 清晰节拍与双音",
+    "composer": "舒曼 · Op.68 No.2",
+    "bpm": 84,
+    "timeSignature": [
+      2,
+      4
+    ],
+    "leadTrack": "upper",
+    "bassTrack": "lower",
+    "transpose": 5
+  },
+  {
+    "useTicks": true,
+    "leadStep": 0.5,
+    "bassStep": 1,
+    "leadCount": 1,
+    "file": "schumann-happy-farmer.mid",
+    "id": "happy-farmer",
+    "title": "快乐的农夫",
+    "subtitle": "轻进阶 · 低音旋律与伴奏",
+    "composer": "舒曼 · Op.68 No.10",
+    "bpm": 80,
+    "timeSignature": [
+      4,
+      4
+    ],
+    "leadTrack": "lower",
+    "bassTrack": "upper",
+    "transpose": 7
+  },
+  {
+    "useTicks": true,
+    "leadStep": 0.5,
+    "bassStep": 1,
+    "leadCount": 1,
+    "file": "schumann-first-loss.mid",
+    "id": "first-loss",
+    "title": "初次的悲伤",
+    "subtitle": "轻进阶 · 慢速抒情",
+    "composer": "舒曼 · Op.68 No.16",
+    "bpm": 66,
+    "timeSignature": [
+      2,
+      4
+    ],
+    "leadTrack": "upper",
+    "bassTrack": "lower",
+    "transpose": 5
+  },
+  {
+    "useTicks": true,
+    "leadStep": 0.5,
+    "bassStep": 1.5,
+    "leadCount": 1,
+    "file": "schumann-wild-rider.mid",
+    "id": "wild-rider",
+    "title": "勇敢的骑士",
+    "subtitle": "轻进阶 · 稍活泼的交替弹奏",
+    "composer": "舒曼 · Op.68 No.8",
+    "bpm": 80,
+    "timeSignature": [
+      6,
+      8
+    ],
+    "leadTrack": "upper",
+    "bassTrack": "lower",
+    "transpose": 0,
+    "swapRanges": [
+      [
+        48,
+        72
+      ]
+    ]
+  },
+  {
+    "useTicks": true,
+    "leadStep": 0.25,
+    "bassStep": 1.5,
+    "leadCount": 1,
+    "file": "chopin-prelude-7.mid",
+    "id": "prelude-7",
+    "title": "A大调前奏曲",
+    "subtitle": "轻进阶 · 短篇完整乐曲",
+    "composer": "肖邦 · Op.28 No.7",
+    "bpm": 60,
+    "timeSignature": [
+      3,
+      4
+    ],
+    "leadTrack": "rh:",
+    "bassTrack": "lh:",
+    "transpose": 3
+  }
+])
+
 function fitKey(midi) {
   while (midi < 52) midi += 12
   while (midi > 83) midi -= 12
@@ -46,10 +209,10 @@ function fitKey(midi) {
     Math.abs(item[1] - midi) < Math.abs(best[1] - midi) ? item : best)
 }
 
-function collect(track, spec, step, count, isBass) {
+function collect(track, spec, step, count, isBass, ppq) {
   const bins = new Map()
   for (const note of track.notes) {
-    const beat = round(note.time * spec.bpm / 60, step)
+    const beat = round(spec.useTicks ? note.ticks / ppq : note.time * spec.bpm / 60, step)
     const items = bins.get(beat) ?? []
     items.push(note)
     bins.set(beat, items)
@@ -67,7 +230,7 @@ function collect(track, spec, step, count, isBass) {
         key,
         pitch: `${pitchNames[mappedMidi % 12]}${Math.floor(mappedMidi / 12) - 1}`,
         beat,
-        duration: Math.max(step, Math.min(4, round(note.duration * spec.bpm / 60, .25))),
+        duration: Math.max(step, Math.min(4, round(spec.useTicks ? note.durationTicks / ppq : note.duration * spec.bpm / 60, .25))),
       })
       if (picked.length === count) break
     }
@@ -76,18 +239,39 @@ function collect(track, spec, step, count, isBass) {
       if (isBass) lastBassBin = beat
     }
   }
+  if (spec.useTicks) {
+    // Each voice stays monophonic: the new arrangements need at most two held keys.
+    for (let i = 0; i < selected.length - 1; i++) {
+      selected[i].duration = Math.min(selected[i].duration, selected[i + 1].beat - selected[i].beat)
+    }
+  }
   return selected
 }
 
 function generate(spec) {
   const midi = new Midi(readFileSync(`source-midi/${spec.file}`))
-  const lead = midi.tracks.find(track => track.name === spec.leadTrack)
-  const bass = midi.tracks.find(track => track.name === spec.bassTrack)
+  let lead = midi.tracks.find(track => track.name === spec.leadTrack)
+  let bass = midi.tracks.find(track => track.name === spec.bassTrack)
   if (!lead || !bass) throw new Error(`Missing MIDI track in ${spec.file}`)
-  const notes = [
-    ...collect(lead, spec, spec.leadStep, spec.leadCount, false),
-    ...collect(bass, spec, .25, 1, true),
+  if (spec.swapRanges) {
+    const swaps = note => spec.swapRanges.some(([start, end]) => note.ticks / midi.header.ppq >= start && note.ticks / midi.header.ppq < end)
+    const originalLead = lead.notes
+    const originalBass = bass.notes
+    lead = { notes: [...originalLead.filter(n => !swaps(n)), ...originalBass.filter(swaps)] }
+    bass = { notes: [...originalBass.filter(n => !swaps(n)), ...originalLead.filter(swaps)] }
+  }
+  let notes = [
+    ...collect(lead, spec, spec.leadStep, spec.leadCount, false, midi.header.ppq),
+    ...collect(bass, spec, .25, 1, true, midi.header.ppq),
   ]
+  if (spec.repeatSections) {
+    // These two source MIDIs omit the written AABB repeats (16 bars per section).
+    const span = spec.repeatSections
+    notes = notes.flatMap(note => {
+      const section = Math.floor(note.beat / span)
+      return [0, 1].map(repeat => ({ ...note, beat: note.beat + (section + repeat) * span }))
+    })
+  }
   const phraseBeats = Math.ceil(Math.max(...notes.map(note => note.beat + note.duration)) / 4) * 4
   const result = []
   const repeats = spec.repeat ?? 1
