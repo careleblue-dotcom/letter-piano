@@ -202,6 +202,14 @@ specs.push(...[
   }
 ])
 
+specs.push({
+  file: 'internationale.mid', id: 'internationale', title: '国际歌',
+  subtitle: '主歌＋副歌 · 轻进阶钢琴版', composer: '皮埃尔·狄盖特 · Jerry Engelbach 原钢琴改编',
+  bpm: 84, timeSignature: [4, 4], useTicks: true,
+  leadTrack: 'Instrument 1', bassTrack: 'Instrument 1',
+  leadStep: .25, bassStep: 2, leadCount: 1, transpose: 2,
+})
+
 function fitKey(midi) {
   while (midi < 52) midi += 12
   while (midi > 83) midi -= 12

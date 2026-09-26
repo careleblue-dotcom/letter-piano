@@ -29,7 +29,7 @@ npm run dev
 - `src/audio/`：本地钢琴采样映射、多声部播放、自然 release、延音。
 - `src/engine/`：以 `AudioContext.currentTime` 为基准的独立歌曲时间轴。
 - `src/keyboard/`：独立的电脑键盘与音高映射。
-- `src/songs/`：歌曲类型、十二首曲目的生成数据，其中八首为轻进阶改编。
+- `src/songs/`：歌曲类型、十三首曲目的生成数据，其中八首为轻进阶改编。
 - `source-midi/`：较长曲目的来源 MIDI；运行 `npm run songs:generate` 可以重新生成 `src/songs/generated.json`。
 - `src/components/`：横向字母曲谱、虚拟琴键、控制栏。
 - `src/pages/`：界面状态和输入协调。
@@ -50,3 +50,5 @@ npm run dev
 
 
 新增八首轻进阶曲目：《G大调小步舞曲》《G小调小步舞曲》《旋律》《士兵进行曲》《快乐的农夫》《初次的悲伤》《勇敢的骑士》《A大调前奏曲》。速度为 60–84 BPM，最多同时按两个键。已删除《欢乐颂 · 入门》《小星星 · 入门》《暮色练习曲 · 入门》。新增曲目的原谱、署名、授权与改编说明见 [source-midi/README.md](source-midi/README.md#新增轻进阶曲目)。
+
+《国际歌》已加入曲库，采用完整一轮主歌与副歌的轻进阶钢琴改编。署名与来源见 [曲谱说明](source-midi/README.md#国际歌)。

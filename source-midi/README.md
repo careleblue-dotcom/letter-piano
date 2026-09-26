@@ -24,3 +24,11 @@
 舒曼五首 MIDI 由 Philippe Hézaine 制谱，版权 © 2007，采用 [CC BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/)；本项目对这五首的字母谱改编也按 CC BY-SA 2.5 提供。两首小步舞曲由 Allen Garvin 制谱并置于公有领域；肖邦前奏曲由 Magnus Lewis-Smith 制谱，Mutopia 标注为 Public Domain。
 
 新增版本使用完整 MIDI 的乐拍位置，适度放慢速度，移调并压缩到十九个字母键，简化为一条旋律和一条稀疏伴奏，每次最多按两个键。《快乐的农夫》保留低音声部的主题；《勇敢的骑士》在中段切换到低音主题。两首小步舞曲的 MIDI 没有展开反复，按原谱将前后两个 16 小节段落分别演奏两次（AABB）。部分作品本身为短篇，未通过额外循环拉长。
+
+
+## 国际歌
+
+- 文件：`internationale.mid`。
+- 来源：[Wikimedia Commons — Internationale-piano-Bb.mid](https://commons.wikimedia.org/wiki/File:Internationale-piano-Bb.mid)。
+- 作曲：Pierre Degeyter（1888）；钢琴编曲：Jerry Engelbach（2001）。旋律为公有领域；该钢琴编曲按 Commons 文件页的 Attribution（署名）许可使用，授权记录 2008011810001789。
+- 本项目改编：保留原钢琴 MIDI 一轮主歌和副歌，移调到 C 大调范围，以最高声部为旋律、稀疏低音为伴奏，简化到十九键。默认 84 BPM、最多同时两键；不包含歌词，也未将不同歌词的多段演唱额外循环。
